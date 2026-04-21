@@ -4166,29 +4166,12 @@ function DeckEstimator() {
             border: `1.5px solid ${C.border}`,
             borderRadius: lg ? 16 : 14,
             padding: lg ? "24px 22px" : "18px 16px",
-            position: "relative",
             ...(gi === INCLUDED_GROUPS.length - 1 && INCLUDED_GROUPS.length % 2 === 1 && lg ? {
               gridColumn: "1 / -1",
               maxWidth: "50%"
             } : {})
           }
         }, /*#__PURE__*/React.createElement("div", {
-          style: {
-            position: "absolute",
-            top: lg ? 16 : 12,
-            right: lg ? 16 : 12,
-            width: 26,
-            height: 26,
-            borderRadius: "50%",
-            background: "#4CAF50",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 14,
-            color: "#fff",
-            fontWeight: 700
-          }
-        }, "\u2713"), /*#__PURE__*/React.createElement("div", {
           style: {
             display: "flex",
             alignItems: "center",
@@ -4227,9 +4210,23 @@ function DeckEstimator() {
             fontWeight: 700,
             color: C.text,
             lineHeight: 1.2,
-            paddingRight: 32
+            flex: 1
           }
-        }, group.title)), /*#__PURE__*/React.createElement("div", {
+        }, group.title), /*#__PURE__*/React.createElement("div", {
+          style: {
+            width: 24,
+            height: 24,
+            borderRadius: "50%",
+            background: "#4CAF50",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 13,
+            color: "#fff",
+            fontWeight: 700,
+            flexShrink: 0
+          }
+        }, "\u2713")), /*#__PURE__*/React.createElement("div", {
           style: {
             display: "flex",
             flexDirection: "column",
