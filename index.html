@@ -8,7 +8,7 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Montserrat', sans-serif; background: #FAFAF8; display: flex; justify-content: center; padding: 20px 10px; min-height: 100vh; }
-  #root { width: 100%; max-width: 720px; }
+  #root { width: 100%; max-width: 960px; }
 </style>
 </head>
 <body>
@@ -885,7 +885,7 @@ function DeckEstimator() {
   const lg = dk; // alias
 
   // Responsive helpers
-  const mw = lg ? 780 : 480; // max content width
+  const mw = lg ? 960 : 480; // max content width
   const pad = lg ? "36px 44px" : "16px 18px";
   const gap = lg ? 14 : 8;
   const cols2 = "1fr 1fr";
@@ -3208,7 +3208,7 @@ function DeckEstimator() {
             }, t.img && /*#__PURE__*/React.createElement("div", {
               style: {
                 width: "100%",
-                height: lg ? 100 : 75,
+                height: lg ? 160 : 100,
                 backgroundImage: `url(${t.img})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
@@ -3797,7 +3797,7 @@ function DeckEstimator() {
             }, /*#__PURE__*/React.createElement("div", {
               style: {
                 width: "100%",
-                height: lg ? 80 : 60,
+                height: lg ? 120 : 70,
                 background: cImg ? `url(${cImg}) center/cover` : C.bg,
                 display: "flex",
                 alignItems: "center",
@@ -4226,7 +4226,8 @@ function DeckEstimator() {
             fontSize: lg ? 17 : 15,
             fontWeight: 700,
             color: C.text,
-            lineHeight: 1.2
+            lineHeight: 1.2,
+            paddingRight: 32
           }
         }, group.title)), /*#__PURE__*/React.createElement("div", {
           style: {
@@ -4345,7 +4346,7 @@ function DeckEstimator() {
             }, hasImg && /*#__PURE__*/React.createElement("div", {
               style: {
                 width: "100%",
-                height: lg ? 130 : 100,
+                height: lg ? 160 : 110,
                 backgroundImage: `url(${hasImg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
