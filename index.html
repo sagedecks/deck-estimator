@@ -845,46 +845,6 @@ function DeckEstimator() {
     setTimeout(postHeight, 350);
     setTimeout(postHeight, 600);
   }, [step, mode]);
-
-  // ── BROWSER HISTORY for swipe back/forward on mobile ──
-  const skipPush = useRef(false);
-  // Push state whenever step or mode changes
-  useEffect(() => {
-    if (skipPush.current) {
-      skipPush.current = false;
-      return;
-    }
-    const state = {
-      step,
-      mode
-    };
-    window.history.pushState(state, "");
-  }, [step, mode]);
-  // Listen for back/forward
-  useEffect(() => {
-    const onPop = e => {
-      skipPush.current = true;
-      if (e.state && e.state.mode !== undefined) {
-        setMode(e.state.mode);
-        setStep(e.state.step || 0);
-        setAnim(false);
-      } else {
-        // No state = initial entry, go to mode selector
-        setMode(null);
-        setStep(0);
-        setAnim(false);
-      }
-      window.scrollTo(0, 0);
-      try {
-        window.parent.postMessage({
-          type: "deckEstimatorScroll",
-          top: true
-        }, "*");
-      } catch (ex) {}
-    };
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, []);
   const up = (k, v) => setD(o => ({
     ...o,
     [k]: v
@@ -6983,8 +6943,18 @@ function DeckEstimator() {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: lg ? "0 44px 32px" : "0 18px 16px",
-      gap: 10
+      padding: lg ? "0 44px 32px" : "12px 18px",
+      gap: 10,
+      ...(lg ? {} : {
+        position: "sticky",
+        bottom: 0,
+        background: "rgba(255,255,255,0.97)",
+        borderTop: `1px solid ${C.border}`,
+        zIndex: 10,
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        boxShadow: "0 -2px 12px rgba(0,0,0,0.06)"
+      })
     }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: () => step === 0 ? setMode(null) : go(-1),
@@ -6992,12 +6962,13 @@ function DeckEstimator() {
       background: "none",
       border: `1.5px solid ${C.border}`,
       borderRadius: 10,
-      padding: lg ? "12px 22px" : "9px 14px",
+      padding: lg ? "12px 22px" : "14px 20px",
       color: C.muted,
       fontFamily: F,
-      fontSize: lg ? 13 : 11,
+      fontSize: lg ? 13 : 14,
       fontWeight: 600,
-      cursor: "pointer"
+      cursor: "pointer",
+      minHeight: lg ? "auto" : 48
     }
   }, "\u2190 Back"), /*#__PURE__*/React.createElement("button", {
     onClick: () => {
@@ -7040,14 +7011,16 @@ function DeckEstimator() {
       background: canNext() ? `linear-gradient(135deg, ${C.accent}, #C9A265)` : C.card,
       border: canNext() ? "none" : `1.5px solid ${C.border}`,
       borderRadius: 10,
-      padding: lg ? "12px 30px" : "9px 20px",
+      padding: lg ? "12px 30px" : "14px 24px",
       color: canNext() ? "#fff" : C.dim,
       fontFamily: F,
-      fontSize: lg ? 13 : 11,
+      fontSize: lg ? 13 : 14,
       fontWeight: 700,
       cursor: canNext() ? "pointer" : "default",
       opacity: canNext() ? 1 : 0.4,
-      transition: "all 0.2s"
+      transition: "all 0.2s",
+      flex: lg ? "none" : 1,
+      minHeight: lg ? "auto" : 48
     }
   }, isContact ? "See My Estimate →" : "Continue →")), isResult && /*#__PURE__*/React.createElement("div", {
     style: {
