@@ -91,32 +91,31 @@ const IMG = {
 // WHAT'S INCLUDED — Grouped by theme. Each group has an icon
 // image slot. Replace "" with your image URL for each group.
 // ═══════════════════════════════════════════════════════════════
-const B = t => /*#__PURE__*/React.createElement("strong", null, t);
 const INCLUDED_GROUPS = [{
   title: "Designed With Clarity From Day One",
   icon: "",
   emoji: "📐",
-  items: [/*#__PURE__*/React.createElement("span", null, "On-site design consultation \u2014 we ", /*#__PURE__*/React.createElement(B, null, "design with you, not days later")), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Custom 3D rendering"), " so you can see your project before we build"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Structural planning"), " built into every project")]
+  items: ["On-site design consultation — we <strong>design with you, not days later</strong>", "<strong>Custom 3D rendering</strong> so you can see your project before we build", "<strong>Structural planning</strong> built into every project"]
 }, {
   title: "Built To Last — Not Just Look Good",
   icon: "",
   emoji: "🛡️",
-  items: [/*#__PURE__*/React.createElement("span", null, "Full ", /*#__PURE__*/React.createElement(B, null, "joist & beam moisture protection"), " to ", /*#__PURE__*/React.createElement(B, null, "prevent"), " premature rot"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Upgraded structural hardware and lumber"), " at all critical connections"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "6\xD76 or"), " better posts standard for ", /*#__PURE__*/React.createElement(B, null, "strength and longevity")), /*#__PURE__*/React.createElement("span", null, "We stay ", /*#__PURE__*/React.createElement(B, null, "code compliant or better"), " on every build")]
+  items: ["Full <strong>joist & beam moisture protection</strong> to <strong>prevent</strong> premature rot", "<strong>Upgraded structural hardware and lumber</strong> at all critical connections", "<strong>6×6 or</strong> better posts standard for <strong>strength and longevity</strong>", "We stay <strong>code compliant or better</strong> on every build"]
 }, {
   title: "Cleaner Finish, Better Details",
   icon: "",
   emoji: "✨",
-  items: [/*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Hidden fasteners"), " and pro-plugs for a ", /*#__PURE__*/React.createElement(B, null, "cleaner"), " finish"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Picture framing and two-tone options"), " included at ", /*#__PURE__*/React.createElement(B, null, "no extra cost"), " on all decks"), /*#__PURE__*/React.createElement("span", null, "Mitered corners and breaker boards \u2014 ", /*#__PURE__*/React.createElement(B, null, "no butt joints ever"))]
+  items: ["<strong>Hidden fasteners</strong> and pro-plugs for a <strong>cleaner</strong> finish", "<strong>Picture framing and two-tone options</strong> included at <strong>no extra cost</strong> on all decks", "Mitered corners and breaker boards — <strong>no butt joints ever</strong>"]
 }, {
   title: "No Surprises, No Shortcuts",
   icon: "",
   emoji: "🤝",
-  items: [/*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Price lock guarantee"), " \u2014 no change orders once signed for material or labor increases"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Clear scope"), " from the start"), /*#__PURE__*/React.createElement("span", null, "Built by a ", /*#__PURE__*/React.createElement(B, null, "Trex Pro Platinum"), " contractor")]
+  items: ["<strong>Price lock guarantee</strong> — no change orders once signed for material or labor increases", "<strong>Clear scope</strong> from the start", "Built by a <strong>Trex Pro Platinum</strong> contractor"]
 }, {
   title: "Backed & Protected",
   icon: "",
   emoji: "🏆",
-  items: [/*#__PURE__*/React.createElement("span", null, "Manufacturer ", /*#__PURE__*/React.createElement(B, null, "warranties up to 50 years")), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Unmatched 3-year workmanship guarantee"), " + additional guarantees for premium decking options chosen \u2014 covers structure + labor"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(B, null, "Price & value guarantee"), " \u2014 apples-to-apples comparison")]
+  items: ["Manufacturer <strong>warranties up to 50 years</strong>", "<strong>Unmatched 3-year workmanship guarantee</strong> + additional guarantees for premium decking options chosen — covers structure + labor", "<strong>Price & value guarantee</strong> — apples-to-apples comparison"]
 }];
 
 // ═══════════════════════════════════════════════════════════════
@@ -4290,8 +4289,11 @@ function DeckEstimator() {
             fontSize: lg ? 14 : 12,
             color: C.muted,
             lineHeight: 1.45
+          },
+          dangerouslySetInnerHTML: {
+            __html: item
           }
-        }, item))))))), /*#__PURE__*/React.createElement("div", {
+        }))))))), /*#__PURE__*/React.createElement("div", {
           style: {
             marginTop: lg ? 20 : 14,
             padding: lg ? "16px 20px" : "12px 14px",
