@@ -7,8 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { font-family: 'Montserrat', sans-serif; background: #FFFFFF; min-height: 100vh; }
-  body { display: flex; justify-content: center; padding: 20px 10px; }
+  html, body { font-family: 'Montserrat', sans-serif; background: #FFFFFF; margin: 0; padding: 0; }
+  body { display: flex; justify-content: center; padding: 10px; }
   #root { width: 100%; max-width: 960px; }
 </style>
 </head>
@@ -836,18 +836,22 @@ function DeckEstimator() {
   }, []);
 
   // Post height to parent iframe so it can resize — eliminates scroll trap on mobile
+  const postHeight = () => {
+    // Measure actual content height from the root element, not document scroll height
+    const root = document.getElementById("root");
+    const h = root ? root.scrollHeight : document.body.scrollHeight;
+    try {
+      window.parent.postMessage({
+        type: "deckEstimatorHeight",
+        height: h
+      }, "*");
+    } catch (e) {}
+  };
   useEffect(() => {
-    const postHeight = () => {
-      const h = document.documentElement.scrollHeight;
-      try {
-        window.parent.postMessage({
-          type: "deckEstimatorHeight",
-          height: h
-        }, "*");
-      } catch (e) {}
-    };
     postHeight();
-    const observer = new MutationObserver(postHeight);
+    const observer = new MutationObserver(() => {
+      setTimeout(postHeight, 50);
+    });
     observer.observe(document.body, {
       childList: true,
       subtree: true,
@@ -860,7 +864,7 @@ function DeckEstimator() {
     };
   }, []);
 
-  // Scroll to top whenever step changes
+  // Scroll to top and re-measure height whenever step changes
   useEffect(() => {
     window.scrollTo(0, 0);
     try {
@@ -869,6 +873,10 @@ function DeckEstimator() {
         top: true
       }, "*");
     } catch (e) {}
+    // Re-post height after content renders (animation completes at 240ms)
+    setTimeout(postHeight, 100);
+    setTimeout(postHeight, 350);
+    setTimeout(postHeight, 600);
   }, [step, mode]);
   const up = (k, v) => setD(o => ({
     ...o,
