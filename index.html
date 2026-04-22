@@ -7,7 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Montserrat', sans-serif; background: #FFFFFF; display: flex; justify-content: center; padding: 20px 10px; min-height: 100vh; }
+  html, body { font-family: 'Montserrat', sans-serif; background: #FFFFFF; min-height: 100vh; }
+  body { display: flex; justify-content: center; padding: 20px 10px; }
   #root { width: 100%; max-width: 960px; }
 </style>
 </head>
@@ -27,74 +28,74 @@ const {
 // ═══════════════════════════════════════════════════════════════
 const IMG = {
   // ── BRANDING ──
-  logo: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/GBP%20Logo%20-%20Resized%20(720px).png",
+  logo: "",
   // YOUR LOGO — PNG with transparent background, 720×614 ratio
 
   // ── SCHEDULING ──
   scheduleUrl: "https://calendar.app.google/Ds6oiVzf1mZSp8g77",
   // ── MATERIAL TIER CARDS (Step: Materials) ──
   tiers: {
-    good: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Trex%20Enhance.jpg",
+    good: "",
     // Trex Enhance board photo
-    better: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Trex%20Select.jpg",
+    better: "",
     // Trex Select board photo
-    best: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Trex%20Transcend%20Lineage.jpg" // Trex Transcend board photo
+    best: "" // Trex Transcend board photo
   },
   // ── DECK SIZE CARDS (Quick Estimator: Size step) ──
   sizes: {
-    small: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Small%20deck.jpg",
+    small: "",
     // Small deck photo (~150sf)
-    medium: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Medium%20Deck.jpg",
+    medium: "",
     // Medium deck photo (~300sf)
-    large: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Large%20Deck.jpg",
+    large: "",
     // Large deck photo (~500sf)
-    xl: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Extra%20Large%20Deck.jpg" // XL deck photo (~800+sf)
+    xl: "" // XL deck photo (~800+sf)
   },
   // ── DECK HEIGHT CARDS (Quick Estimator: Height step) ──
   heights: {
-    ground: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Ground%20Level%20Deck.jpg",
+    ground: "",
     // Ground-level deck photo
-    "few-steps": "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Waist%20Hight.jpg",
+    "few-steps": "",
     // Deck a few steps up
-    elevated: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Overhead%20Deck.jpg",
+    elevated: "",
     // Second-story / elevated deck
     "not-sure": "" // Generic deck photo
   },
   // ── RAILING TYPE CARDS (Both estimators: Railing step) ──
   rail: {
-    steel: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Cinch%20Steel%20Railing.jpg",
+    steel: "",
     // Steel railing photo
-    aluminum: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Aluminum%20Railing.jpg",
+    aluminum: "",
     // Aluminum railing photo
-    custom: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Custom%20Railing.jpg" // Custom railing photo
+    custom: "" // Custom railing photo
   },
   // ── UPGRADE CARDS (Both estimators: Upgrades step) ──
   upgrades: {
-    "deck-lighting": "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Deck%20lighting.jpg",
+    "deck-lighting": "",
     // Post cap / stair lights
-    "ceiling-lighting": "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Deck%20Ceiling%20Lighting.jpg",
+    "ceiling-lighting": "",
     // Ceiling-mounted fixtures
-    drainage: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Trex%20RainEscape.jpg",
+    drainage: "",
     // RainEscape / under-deck
-    ceiling: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/deck%20ceiling%20finish.jpg",
+    ceiling: "",
     // Finished ceiling (generic)
-    seating: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Trex%20Benches.jpg",
+    seating: "",
     // Built-in bench seating
-    "drink-top": "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Drink%20Top.jpg",
+    "drink-top": "",
     // Cocktail rail / bar top
-    "hot-tub": "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Hot%20Tub%20Reinforcement.jpg",
+    "hot-tub": "",
     // Hot tub on deck
     inlays: "",
     // Inlay / pattern decking
-    curved: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Curved%20Decking.jpg",
+    curved: "",
     // Curved / angled framing
-    skirting: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Trex%20Cladding.jpg",
+    skirting: "",
     // Skirting / cladding
-    pergola: "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Pergola_Shade.jpg",
+    pergola: "",
     // Pergola / shade structure
-    "ceiling-aluminum": "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/Ceiling%20Aluminum%20Finish.jpg",
+    "ceiling-aluminum": "",
     // Aluminum ceiling finish
-    "ceiling-tg": "https://raw.githubusercontent.com/sagedecks/deck-estimator/main/T%26G%20Ceiling%20Finish.jpg",
+    "ceiling-tg": "",
     // Pine tongue & groove ceiling
     "ceiling-bb": "" // Board & batten ceiling
   },
@@ -833,6 +834,42 @@ function DeckEstimator() {
     window.addEventListener("resize", c);
     return () => window.removeEventListener("resize", c);
   }, []);
+
+  // Post height to parent iframe so it can resize — eliminates scroll trap on mobile
+  useEffect(() => {
+    const postHeight = () => {
+      const h = document.documentElement.scrollHeight;
+      try {
+        window.parent.postMessage({
+          type: "deckEstimatorHeight",
+          height: h
+        }, "*");
+      } catch (e) {}
+    };
+    postHeight();
+    const observer = new MutationObserver(postHeight);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
+    window.addEventListener("resize", postHeight);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", postHeight);
+    };
+  }, []);
+
+  // Scroll to top whenever step changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    try {
+      window.parent.postMessage({
+        type: "deckEstimatorScroll",
+        top: true
+      }, "*");
+    } catch (e) {}
+  }, [step, mode]);
   const up = (k, v) => setD(o => ({
     ...o,
     [k]: v
@@ -848,6 +885,13 @@ function DeckEstimator() {
       setStep(s => s + n);
       setAnim(false);
       setExpGuide(null);
+      window.scrollTo(0, 0);
+      try {
+        window.parent.postMessage({
+          type: "deckEstimatorScroll",
+          top: true
+        }, "*");
+      } catch (e) {}
     }, 240);
   };
   const fmt = n => "$" + n.toLocaleString();
@@ -1434,10 +1478,10 @@ function DeckEstimator() {
           t: "Or enter your exact square footage"
         }), /*#__PURE__*/React.createElement("input", {
           type: "number",
-          value: d.sqft,
+          value: d.sqft || "",
           min: 50,
           max: 5000,
-          onChange: e => up("sqft", Number(e.target.value)),
+          onChange: e => up("sqft", e.target.value === "" ? 0 : Number(e.target.value)),
           style: {
             background: C.bg,
             border: `1.5px solid ${C.border}`,
@@ -1450,7 +1494,10 @@ function DeckEstimator() {
             outline: "none",
             width: lg ? 220 : "100%"
           },
-          onFocus: e => e.target.style.borderColor = C.accent,
+          onFocus: e => {
+            e.target.style.borderColor = C.accent;
+            e.target.select();
+          },
           onBlur: e => e.target.style.borderColor = C.border
         }));
       case "structure":
@@ -4821,11 +4868,11 @@ function DeckEstimator() {
             }
           }, /*#__PURE__*/React.createElement("input", {
             type: "number",
-            value: d.railingLinFt,
+            value: d.railingLinFt || "",
             min: 0,
             max: 500,
             onChange: e => {
-              up("railingLinFt", Number(e.target.value));
+              up("railingLinFt", e.target.value === "" ? 0 : Number(e.target.value));
               up("railingAutoFilled", true);
             },
             style: {
@@ -4840,7 +4887,10 @@ function DeckEstimator() {
               outline: "none",
               width: lg ? 160 : 120
             },
-            onFocus: e => e.target.style.borderColor = C.accent,
+            onFocus: e => {
+              e.target.style.borderColor = C.accent;
+              e.target.select();
+            },
             onBlur: e => e.target.style.borderColor = C.border
           }), /*#__PURE__*/React.createElement("span", {
             style: {
@@ -5213,10 +5263,10 @@ function DeckEstimator() {
           }
         }, /*#__PURE__*/React.createElement("input", {
           type: "number",
-          value: d.demoSqFt || d.sqft,
+          value: d.demoSqFt || d.sqft || "",
           min: 50,
           max: 5000,
-          onChange: e => up("demoSqFt", Number(e.target.value)),
+          onChange: e => up("demoSqFt", e.target.value === "" ? 0 : Number(e.target.value)),
           style: {
             background: C.bg,
             border: `1.5px solid ${C.border}`,
@@ -5229,7 +5279,10 @@ function DeckEstimator() {
             outline: "none",
             width: lg ? 160 : 120
           },
-          onFocus: e => e.target.style.borderColor = C.accent,
+          onFocus: e => {
+            e.target.style.borderColor = C.accent;
+            e.target.select();
+          },
           onBlur: e => e.target.style.borderColor = C.border
         }), /*#__PURE__*/React.createElement("span", {
           style: {
@@ -6685,7 +6738,6 @@ function DeckEstimator() {
         maxWidth: mw,
         width: "100%",
         margin: "0 auto",
-        overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         position: "relative",
@@ -6844,8 +6896,7 @@ function DeckEstimator() {
       background: C.bg,
       maxWidth: mw,
       width: "100%",
-      margin: "0 auto",
-      overflow: "hidden"
+      margin: "0 auto"
     }
   }, !isResult && /*#__PURE__*/React.createElement("div", {
     style: {
