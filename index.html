@@ -845,6 +845,46 @@ function DeckEstimator() {
     setTimeout(postHeight, 350);
     setTimeout(postHeight, 600);
   }, [step, mode]);
+
+  // ── BROWSER HISTORY for swipe back/forward on mobile ──
+  const skipPush = useRef(false);
+  // Push state whenever step or mode changes
+  useEffect(() => {
+    if (skipPush.current) {
+      skipPush.current = false;
+      return;
+    }
+    const state = {
+      step,
+      mode
+    };
+    window.history.pushState(state, "");
+  }, [step, mode]);
+  // Listen for back/forward
+  useEffect(() => {
+    const onPop = e => {
+      skipPush.current = true;
+      if (e.state && e.state.mode !== undefined) {
+        setMode(e.state.mode);
+        setStep(e.state.step || 0);
+        setAnim(false);
+      } else {
+        // No state = initial entry, go to mode selector
+        setMode(null);
+        setStep(0);
+        setAnim(false);
+      }
+      window.scrollTo(0, 0);
+      try {
+        window.parent.postMessage({
+          type: "deckEstimatorScroll",
+          top: true
+        }, "*");
+      } catch (ex) {}
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
   const up = (k, v) => setD(o => ({
     ...o,
     [k]: v
